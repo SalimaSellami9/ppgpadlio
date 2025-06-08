@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Réservation Padel</title>
+  <style>
+    :root {
+      --beige: #fdf6f0;
+      --gold: #ffbd59;
+      --blue-dark: #22386c;
+      --blue-deep: #001b79;
+      --font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: linear-gradient(135deg, var(--beige), #ffffff);
+      color: var(--blue-dark);
+      min-height: 100vh;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Header */
+    .header-padel {
+      width: 100%;
+      background-color: var(--blue-deep);
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 8px rgba(0, 27, 121, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-padel {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-padel {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+    }
+
+    .nav-links-padel a {
+      color: var(--beige);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links-padel a:hover {
+      color: var(--gold);
+    }
+
+    /* Sections */
+    section {
+      max-width: 900px;
+      width: 100%;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      text-align: center;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-padel {
+      padding: 6rem 1rem 4rem 1rem;
+      background: linear-gradient(135deg, var(--gold), var(--blue-deep));
+      color: var(--beige);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 27, 121, 0.15);
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    h2 {
+      color: var(--blue-deep);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      letter-spacing: 1.2px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: var(--blue-dark);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-padel {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links-padel {
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .nav-links-padel a {
+        margin: 0.5rem 0;
+      }
+      h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header-padel">
+    <nav class="nav-padel">
+      <div class="logo-padel">Padel Club</div>
+      <div class="nav-links-padel">
+        <a href="#accueil">Accueil</a>
+        <a href="#reservation">Réservation</a>
+        <a href="#tournois">Tournois</a>
+        <a href="#contact">Contact</a>
+        <a href="{% url 'connecter' %}">Se connecter</a>
+        <a href="{% url 'creerCompte' %}">Créer un compte</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero-padel" id="accueil">
+    <h1>Réservez votre terrain de padel facilement</h1>
+    <p>Bienvenue sur notre plateforme de réservation de terrains de padel. Simple, rapide et efficace !</p>
+  </section>
+
+  <section class="section-padel" id="reservation">
+    <h2>Réservation</h2>
+    <p>Réservez votre terrain en quelques clics grâce à notre système en ligne.</p>
+  </section>
+
+  <section class="section-padel" id="tournois">
+    <h2>Tournois</h2>
+    <p>Découvrez nos prochains tournois et inscrivez-vous pour relever le défi !</p>
+  </section>
+
+  <section class="section-padel" id="contact">
+    <h2>Contact</h2>
+    <p>Besoin d'aide ? Contactez-nous par téléphone, email ou via notre formulaire en ligne.</p>
+  </section>
+
+  <section class="section-padel" id="connecter">
+    <h2>Connexion</h2>
+    <p>Connectez-vous pour accéder à votre compte et gérer vos réservations.</p>
+  </section>
+
+  <section class="section-padel" id="creer-compte">
+    <h2>Créer un compte</h2>
+    <p>Inscrivez-vous dès maintenant pour profiter de tous nos services.</p>
+  </section>
+
+</body>
+</html>

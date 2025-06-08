@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Réservation Padlio</title>
+  <style>
+    /* Palette */
+    :root {
+      --beige: #fdf6f0;
+      --gold: #ffbd59;
+      --blue-dark: #22386c;
+      --blue-deep: #001b79;
+    }
+
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, var(--beige), #ffffff);
+      color: var(--blue-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: var(--blue-deep);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 27, 121, 0.15);
+      width: 100%;
+      max-width: 500px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    form p {
+      margin-bottom: 1.5rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--blue-dark);
+      border-radius: 8px;
+      background-color: var(--beige);
+      font-size: 1rem;
+      color: var(--blue-dark);
+      transition: border 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--blue-deep);
+    }
+
+    button {
+      background-color: var(--gold);
+      color: var(--blue-deep);
+      border: none;
+      padding: 14px 28px;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background-color: #ffd270;
+      transform: scale(1.03);
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Réservation</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Rechercher</button>
+  </form>
+</body>
+</html>
