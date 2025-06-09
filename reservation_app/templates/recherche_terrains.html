@@ -149,21 +149,22 @@
 <body>
     <h1>Rechercher un terrain par gouvernorat</h1>
 
-    <form method="get" action="">
-        <label for="gouvernorat">Gouvernorat :</label>
-        <input type="text" id="gouvernorat" name="gouvernorat" required />
-
-        <label for="nb_personnes">Nombre de personnes :</label>
-        <input type="number" id="nb_personnes" name="nb_personnes" min="1" required />
-
-        <button type="submit">Rechercher</button>
-    </form>
 
     {% if terrains %}
-        <h2>Liste des terrains disponibles pour {{ request.GET.nb_personnes }} personnes dans {{ request.GET.gouvernorat }} :</h2>
+        <h2>Liste des terrains disponibles dans {{ request.GET.gouvernorat }} :</h2>
         <ul>
         {% for terrain in terrains %}
-            <li>{{ terrain.nom }}</li>
+            <li>{{ terrain.nom }}
+  <form action="{% url 'confirmer_reservation' %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <input type="hidden" name="terrain_id" value="{{ terrain.id }}">
+    <input type="hidden" name="date_jeu_souhaitee" value="{{ request.GET.date_jeu_souhaitee }}">
+    <input type="hidden" name="heure_debut_souhaitee" value="{{ request.GET.heure_debut_souhaitee }}">
+    <input type="hidden" name="nb_personnes" value="{{ request.GET.nb_personnes }}">
+    <button type="submit" style="background:none; border:none; color: var(--blue-dark); cursor:pointer; font-weight:600; font-size:1.1rem; text-decoration:underline; padding:0;">
+      Réserver
+    </button>
+  </form></li>
         {% empty %}
             <li>Aucun terrain trouvé.</li>
         {% endfor %}

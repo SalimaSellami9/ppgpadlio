@@ -43,6 +43,7 @@ class Centre(models.Model):
     nom = models.CharField(max_length=100)
     adresse = models.TextField()
     nb_terrain = models.PositiveIntegerField()
+    gouvernorat = models.CharField(max_length=100, default='Tunis')
     proprietaire = models.ForeignKey(
         'User',
         on_delete=models.CASCADE,

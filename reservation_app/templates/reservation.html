@@ -109,8 +109,8 @@
 <body>
   <h1>Réservation</h1>
 
-  <form method="post">
-    {% csrf_token %}
+  <form method="get" action="{% url 'rechercher_terrain' %}">
+  {% csrf_token %} 
 
     <p>
       {{ form.gouvernorat.label_tag }}

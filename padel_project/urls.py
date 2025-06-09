@@ -20,13 +20,12 @@ from . import views
 from reservation_app import views
 
 urlpatterns = [
-
-    path('reservation/', views.rechercher_terrain, name='reservation'),
-    path('reserver/', views.reserver, name='reserver'),
-    path('admin/', admin.site.urls),
+    path('confirmer-reservation/', views.confirmer_reservation, name='confirmer_reservation'),
+    path('reserver/', views.reserver_formulaire, name='reserver_formulaire'),
+    path('api/reserver/', views.reserver_api, name='reserver_api'),
+    path('recherche-terrains/', views.rechercher_terrain, name='rechercher_terrain'),
     path('', include('reservation_app.urls')),
     path('', views.home, name='home'), 
-    path('terrains_list/', views.rechercher_terrain, name='terrains_list'),
     path('admin/', admin.site.urls),
     path('connecter/', views.connexion_view, name='connecter'),
     path('creerCompte/', views.creer_compte_view, name='creerCompte'),

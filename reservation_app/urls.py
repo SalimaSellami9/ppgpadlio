@@ -3,8 +3,9 @@ from . import views
 
 
 urlpatterns = [
-    path('reserver/', views.reserver, name='reserver'),
-    path('terrains_list/', views.rechercher_terrain, name='terrains_list'),
+    path('reserver/', views.reserver_formulaire, name='reserver_formulaire'),
+    path('api/reserver/', views.reserver_api, name='reserver_api'),
+    path('recherche-terrains/', views.rechercher_terrain, name='rechercher_terrain'),
 ]
 
 
