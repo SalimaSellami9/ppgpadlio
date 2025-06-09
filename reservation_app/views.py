@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from datetime import datetime, timedelta
-from .forms import ReservationForm, RechercheReservationForm, RechercheTerrainForm
+from .forms import  RechercheReservationForm
 from .models import Reservation, User, Terrain
 
 
@@ -8,9 +8,10 @@ def home(request):
     return render(request, 'home.html')
 
 
+
 def reserver(request):
     if request.method == 'POST':
-        form = ReservationForm(request.POST)
+        form = RechercheReservationForm(request.POST)
         if form.is_valid():
             user = User.objects.first()  
 
@@ -18,70 +19,32 @@ def reserver(request):
                 user=user,
                 terrain=form.cleaned_data['terrain'],
                 date_jeu_souhaitee=form.cleaned_data['date_jeu_souhaitee'],
-                heure_debut_souhaitee="10:00",  
+                heure_debut_souhaitee="10:00",
                 nb_personnes=form.cleaned_data['nb_personnes'],
                 etat_reservation='E'
             )
             return render(request, 'confirmation.html', {'reservation': reservation})
-    else:
-        form = ReservationForm()
-
-    return render(request, 'reservation.html', {'form': form})
-
-
-def rechercher_terrain(request):
-    if request.method == 'POST':
-        form = RechercheReservationForm(request.POST)
-        if form.is_valid():
-            date = form.cleaned_data['date_jeu_souhaitee']
-            heure = form.cleaned_data['heure_debut_souhaitee']
-            nb_personnes = form.cleaned_data['nb_personnes']
-
-            debut = datetime.combine(date, heure)
-            fin = debut + timedelta(hours=1)
-
-            terrains_reserves = Reservation.objects.filter(
-                date_jeu_souhaitee=date,
-                heure_debut_souhaitee=heure,
-                etat_reservation='C'
-            ).values_list('terrain_id', flat=True)
-
-            terrains_disponibles = Terrain.objects.exclude(id__in=terrains_reserves)
-
-            if nb_personnes == 4:
-                terrains_disponibles = terrains_disponibles.filter(type='Padel')
-
-            if terrains_disponibles.exists():
-                return render(request, 'matchmaking.html', {
-                    'terrains': terrains_disponibles,
-                    'nb_personnes': nb_personnes
-                })
-            else:
-                return render(request, 'liste_terrains.html', {
-                    'date': date,
-                    'heure': heure,
-                    'nb_personnes': nb_personnes
-                })
     else:
         form = RechercheReservationForm()
 
     return render(request, 'reservation.html', {'form': form})
 
 
-def terrains_list(request):
-    terrains = None
-    if request.method == 'POST':
-        form = RechercheTerrainForm(request.POST)
-        if form.is_valid():
-            gouvernorat = form.cleaned_data['gouvernorat']
-            terrains = Terrain.objects.filter(centre__gouvernorat__iexact=gouvernorat)
-    else:
-        form = RechercheTerrainForm()
 
-    return render(request, 'recherche_terrains.html', {
-        'form': form,
-        'terrains': terrains
-    })
+def rechercher_terrain(request):
+    terrains = []
+    gouvernorat = request.GET.get('gouvernorat')
+    nb_personnes = request.GET.get('nb_personnes')
+
+    if gouvernorat and nb_personnes:
+        try:
+            nb_personnes = int(nb_personnes)
+            if nb_personnes == 4:
+                terrains = Terrain.objects.filter(gouvernorat=gouvernorat)
+        except ValueError:
+            pass
+
+    return render(request, 'recherche_terrains.html', {'terrains': terrains})
 from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt

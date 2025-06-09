@@ -1,32 +1,58 @@
 from django import forms
-from .models import Terrain
-
-class ReservationForm(forms.Form):
-    gouvernorat = forms.ChoiceField(choices=[
-        ('Tunis', 'Tunis'), ('Ariana', 'Ariana'), ('Ben Arous', 'Ben Arous'),
-        ('Manouba', 'Manouba'), ('Sfax', 'Sfax'), ('Sousse', 'Sousse'),
-        ('Gabès', 'Gabès'), ('Nabeul', 'Nabeul'), ('Monastir', 'Monastir'),
-        ('Bizerte', 'Bizerte')
-    ])
-    date_jeu_souhaitee = forms.DateField(widget=forms.SelectDateWidget)
-    nb_personnes = forms.ChoiceField(choices=[(i, f"{i} personne(s)") for i in range(1, 5)])
-    mode_paiement = forms.ChoiceField(choices=[
-        ('tous', 'Tous le terrain'),
-        ('1part', 'Une part'),
-        ('2part', 'Deux parts'),
-        ('3part', 'Trois parts'),
-        ('sur_place', 'Sur place'),
-    ])
 from .models import Reservation
 
-class RechercheReservationForm(forms.ModelForm):
-    class Meta:
-        model = Reservation
-        fields = ['date_jeu_souhaitee', 'heure_debut_souhaitee', 'nb_personnes']
-class RechercheTerrainForm(forms.Form):
-    gouvernorat = forms.ChoiceField(choices=[
-        ('Tunis', 'Tunis'), ('Ariana', 'Ariana'), ('Ben Arous', 'Ben Arous'),
-        ('Manouba', 'Manouba'), ('Sfax', 'Sfax'), ('Sousse', 'Sousse'),
-        ('Gabès', 'Gabès'), ('Nabeul', 'Nabeul'), ('Monastir', 'Monastir'),
-        ('Bizerte', 'Bizerte')
-    ])
+GOUVERNORATS_CHOICES = [
+    ('Tunis', 'Tunis'), ('Ariana', 'Ariana'), ('Ben Arous', 'Ben Arous'),
+    ('Manouba', 'Manouba'), ('Sfax', 'Sfax'), ('Sousse', 'Sousse'),
+    ('Gabès', 'Gabès'), ('Nabeul', 'Nabeul'), ('Monastir', 'Monastir'),
+    ('Bizerte', 'Bizerte')
+]
+
+NB_PERSONNES_CHOICES = [(i, f"{i} personne(s)") for i in range(1, 5)]
+
+MODE_PAIEMENT_CHOICES = [
+    ('tous', 'Tout le terrain'),
+    ('1part', 'Une part'),
+    ('2part', 'Deux parts'),
+    ('3part', 'Trois parts'),
+    ('sur_place', 'Sur place'),
+]
+
+
+class RechercheReservationForm(forms.Form):
+    gouvernorat = forms.ChoiceField(
+        choices=GOUVERNORATS_CHOICES,
+        label="Gouvernorat",
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    date_jeu_souhaitee = forms.DateField(
+        label="Date souhaitée",
+        widget=forms.DateInput(attrs={
+            'type': 'date',
+            'class': 'form-control'
+        })
+    )
+
+    heure_debut_souhaitee = forms.TimeField(
+        label="Heure souhaitée",
+        widget=forms.TimeInput(attrs={
+            'type': 'time',
+            'class': 'form-control'
+        })
+    )
+
+    nb_personnes = forms.ChoiceField(
+        choices=NB_PERSONNES_CHOICES,
+        label="Nombre de personnes",
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    mode_paiement = forms.ChoiceField(
+        choices=MODE_PAIEMENT_CHOICES,
+        label="Mode de paiement",
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+
+ 

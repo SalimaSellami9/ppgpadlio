@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Réservation Padlio</title>
   <style>
-    /* Palette */
     :root {
       --beige: #fdf6f0;
       --gold: #ffbd59;
@@ -12,7 +11,6 @@
       --blue-deep: #001b79;
     }
 
-    /* Reset */
     * {
       margin: 0;
       padding: 0;
@@ -54,7 +52,14 @@
       margin-bottom: 1.5rem;
     }
 
-    input, select, textarea {
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: var(--blue-deep);
+    }
+
+    input, select {
       width: 100%;
       padding: 12px;
       border: 2px solid var(--blue-dark);
@@ -65,7 +70,7 @@
       transition: border 0.3s ease;
     }
 
-    input:focus, select:focus, textarea:focus {
+    input:focus, select:focus {
       outline: none;
       border-color: var(--blue-deep);
     }
@@ -90,27 +95,14 @@
       transform: scale(1.03);
     }
 
-    /* Animations */
     @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -119,7 +111,32 @@
 
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+
+    <p>
+      {{ form.gouvernorat.label_tag }}
+      {{ form.gouvernorat }}
+    </p>
+
+    <p>
+      {{ form.date_jeu_souhaitee.label_tag }}
+      {{ form.date_jeu_souhaitee }}
+    </p>
+
+    <p>
+      {{ form.heure_debut_souhaitee.label_tag }}
+      {{ form.heure_debut_souhaitee }}
+    </p>
+
+    <p>
+      {{ form.nb_personnes.label_tag }}
+      {{ form.nb_personnes }}
+    </p>
+
+    <p>
+      {{ form.mode_paiement.label_tag }}
+      {{ form.mode_paiement }}
+    </p>
+
     <button type="submit">Rechercher</button>
   </form>
 </body>
